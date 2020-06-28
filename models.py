@@ -10,7 +10,7 @@ import sys
 database_path = os.environ.get('DATABASE_URL')
 
 if not database_path:
-  database_path = 'postgresql://shaun:@localhost:5432/FSND-Capstone'
+  database_path = 'postgresql://shaun:a128299239@localhost:5432/FSND-Capstone'
 
 db = SQLAlchemy()
 
@@ -23,10 +23,12 @@ def setup_db(app, database_path=database_path):
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
     db.app = app
     db.init_app(app)
+    db.create_all()
+    '''
     db.drop_all()
     db.create_all()
     db_init_records()
-
+    '''
 def db_drop_and_create_all():
     '''
     drops the database tables and starts fresh
@@ -46,20 +48,19 @@ def db_init_records():
         gender = 'Male',
         age = 30
         ))
+    new_actor.insert()
 
     new_movie = (Movie(
         title = 'Shaun first super movie',
         release_date = date.today()
         ))
+    new_movie.insert()
     
     new_act_movies = act_movies.insert().values(
         actor_id = new_actor.id,
         movie_id = new_movie.id
     )
-    
 
-    new_actor.insert()
-    new_movie.insert()
     db.session.execute(new_act_movies) 
     db.session.commit()
 
@@ -79,9 +80,9 @@ class Actor(db.Model):
   __tablename__ = 'actors'
 
   id = Column(Integer, primary_key=True)
-  name = Column(String)
-  gender = Column(String)
-  age = Column(Integer)
+  name = Column(String, nullable = False)
+  gender = Column(String, nullable = False)
+  age = Column(Integer, nullable = False)
   movies = db.relationship('Movie', secondary=act_movies, 
     backref=db.backref('actors', lazy=True))
 
@@ -116,8 +117,8 @@ class Movie(db.Model):
   __tablename__ = 'movies'
 
   id = Column(Integer, primary_key=True)
-  title = Column(String)
-  release_date = Column(Date)
+  title = Column(String, nullable = False)
+  release_date = Column(Date, nullable = False)
 
   def __init__(self, title, release_date) :
     self.title = title

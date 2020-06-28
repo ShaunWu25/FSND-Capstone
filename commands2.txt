@@ -1,0 +1,29 @@
+actor2 = Actor(name='Febi',gender='Female',age=22)
+actor3 = Actor(name='Arno',gender='Male',age=54)
+actor4 = Actor(name='Leanne',gender='Female',age=52)
+actor5 = Actor(name='Ignatia',gender='Female',age=25)
+actor6 = Actor(name='Jair',gender='Male',age=38)
+actor7 = Actor(name='Rozy',gender='Male',age=37)
+actor8 = Actor(name='Hope',gender='Female',age=30)
+actor9 = Actor(name='Jordy',gender='Male',age=29)
+actor10 = Actor(name='Jason',gender='Male',age=22)
+actor11 = Actor(name='Keith',gender='Male',age=24)
+actor12 = Actor(name='June',gender='Female',age=55)
+
+movie1= Movie(title='Inferno', release_date=date.today())
+movie2= Movie(title='Bat Man', release_date=date.today())
+movie3= Movie(title='Invisible', release_date=date.today())
+movie4= Movie(title='Maze', release_date=date.today())
+movie5= Movie(title='Untouchable', release_date=date.today())
+
+new_act_movies = act_movies.insert().values(actor_id = actor3.id, movie_id = movie1.id)
+new_act_movie2 = act_movies.insert().values(actor_id = actor10.id, movie_id = movie5.id)
+new_act_movie3 = act_movies.insert().values(actor_id = actor6.id, movie_id = movie3.id)
+new_act_movie4 = act_movies.insert().values(actor_id = actor5.id, movie_id = movie2.id)
+
+
+db.session.execute(new_act_movie2)
+
+curl -X POST -H "Content-Type: application/json" -d '{"name":"John", "gender":"Male", "age":"60"}' http://127.0.0.1:5000/actors
+
+curl http://127.0.0.1:5000/actors/2 -X PATCH -H "Content-Type: application/json" -d '{"age":"36"}'
