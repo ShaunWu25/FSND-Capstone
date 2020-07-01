@@ -3,6 +3,7 @@ from flask import Flask, request, abort, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from models import setup_db, Actor, Movie, act_movies
+from auth import AuthError, requires_auth
 
 DATAS_PER_PAGE = 10
 
@@ -33,37 +34,40 @@ def create_app(test_config=None):
   # CORS Headers 
   @app.after_request
   def after_request(response):
-      response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
-      response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
-      return response
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,true')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PATCH,POST,DELETE,OPTIONS')
+    return response
 
   @app.route('/')
   def hello():
-      return jsonify({'message' : 'Hello World' })
-  
-  @app.route('/smile')
-  def smile():
-      return jsonify({'message' : 'im smile' })
+    return jsonify({'message' : 'Hello World, This is Shaun.' })
+
+  @app.route('/headers')
+  @requires_auth()
+  def headers(token):
+    print(token)
+    return 'testing'
 
   @app.route('/movies')
   def get_movies():
-      movies = Movie.query.order_by(Movie.id).all()
-      formatted_movies = [movie.format() for movie in movies]
-      return jsonify({
-        'success' : True,
-        'movies': formatted_movies
-      })
+    movies = Movie.query.order_by(Movie.id).all()
+    formatted_movies = [movie.format() for movie in movies]
+    return jsonify({
+      'success' : True,
+      'movies': formatted_movies
+    })
 
   @app.route('/actors')
-  def get_actors():
-      actors = Actor.query.order_by(Actor.id).all()
-      current_actors = paginate_pages(request, actors)
-      if len(current_actors) == 0:
-        abort(404)
-      return jsonify({
-        'success' : True,
-        'actors': current_actors,
-        'total_actors': len(actors)
+  @requires_auth('get:actors')
+  def get_actors(token):
+    actors = Actor.query.order_by(Actor.id).all()
+    current_actors = paginate_pages(request, actors)
+    if len(current_actors) == 0:
+      abort(404)
+    return jsonify({
+      'success' : True,
+      'actors': current_actors,
+      'total_actors': len(actors)
       })
 
   @app.route("/actors/<int:actor_id>")
