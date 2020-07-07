@@ -16,7 +16,13 @@ movie3= Movie(title='Invisible', release_date=date.today())
 movie4= Movie(title='Maze', release_date=date.today())
 movie5= Movie(title='Untouchable', release_date=date.today())
 
-movie2= Movie(title='YipMan', release_date=date.today())
+movie1= Movie(title='Your Name', release_date=date.today())
+
+FSND_Capstone
+heroku pg:push FSND_Capstone 'postgresql://shaun:a128299239@localhost:5432/FSND-Capstone' --app shaun-casting-agency
+heroku pg:push FSND_Capstone HEROKU_POSTGRESQL_MAGENTA --app shaun-casting-agency
+heroku pg:push FSND_Capstone DATABASE_URL --app shaun-casting-agency
+
 
 new_act_movies = act_movies.insert().values(actor_id = actor3.id, movie_id = movie1.id)
 new_act_movie2 = act_movies.insert().values(actor_id = actor10.id, movie_id = movie5.id)
@@ -56,6 +62,8 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"John", "gender":"M
   "success": false
 }
 
+export DATABASE_URL=postgresql://shaun:a128299239@localhost:5432/FSND-Capstone
+
 0MurronB3kgb8aSa5A31PQc1LGQmVhu9
 https://fsnd-shaun.auth0.com/authorize?audience=Casting-Agency-Identifier&response_type=token&client_id=0MurronB3kgb8aSa5A31PQc1LGQmVhu9&redirect_uri=https://127.0.0.1:5000/login-results
 
@@ -64,6 +72,3 @@ eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJ
 https://127.0.0.1:5000/login-results#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEzODI1MDA0MDUxMjU0ODIzMjA2IiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5MzQ0Mzc0MiwiZXhwIjoxNTkzNDUwOTQyLCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.Eycn209B5NmY9M7LHhSa0CU-FVNgLr_Yk5xtLOoNooM9Vu9vtaEEK48hkN-9lzdNUfJyRjT1PRCV1wavEqrTv2usg68joUbSQKtyThOLnOkv_Yww7nsC9XPYSIZ2bgWdOFqzbvNd3LD59hSjEoUrKu8T1AgOpsWPCwtVosQizBGEk6XTMIP5LTQ2ZAsPjMNoBbPbYaqF4MBemIWdpB-XHbmWLrglD6SRN8rFSBc_8WaeIuHdSTFX5zN3o-WInWX1_91iPtQcO8SzVSwYbP9CuliBpaAJPwxEAwBzxRThAppCmaoZbdCn9KqTXKnIEmitglSsyW9nGnet3EnxWeEM9w&scope=openid%20profile%20email&expires_in=7200&token_type=Bearer&state=g6Fo2SBtU05fQTVOcG1XYWtOTkZxT3RkTXgyMU9Pek5lS0MyeaN0aWTZIFlzaUlVUlFpVmtlc2MxcFNVcjZMQWlOX3V1TGtEeHQ0o2NpZNkgME11cnJvbkIza2diOGFTYTVBMzFQUWMxTEdRbVZodTk
 
 eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEzODI1MDA0MDUxMjU0ODIzMjA2IiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5MzQ0Mzc0MiwiZXhwIjoxNTkzNDUwOTQyLCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.Eycn209B5NmY9M7LHhSa0CU-FVNgLr_Yk5xtLOoNooM9Vu9vtaEEK48hkN-9lzdNUfJyRjT1PRCV1wavEqrTv2usg68joUbSQKtyThOLnOkv_Yww7nsC9XPYSIZ2bgWdOFqzbvNd3LD59hSjEoUrKu8T1AgOpsWPCwtVosQizBGEk6XTMIP5LTQ2ZAsPjMNoBbPbYaqF4MBemIWdpB-XHbmWLrglD6SRN8rFSBc_8WaeIuHdSTFX5zN3o-WInWX1_91iPtQcO8SzVSwYbP9CuliBpaAJPwxEAwBzxRThAppCmaoZbdCn9KqTXKnIEmitglSsyW9nGnet3EnxWeEM9w
-
-
-https://git.heroku.com/shaun-fsnd-capstone.git
