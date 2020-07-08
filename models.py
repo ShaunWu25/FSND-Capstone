@@ -7,12 +7,13 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify, a
 from flask_migrate import Migrate
 import sys
 
-
+'''
 database_path = os.environ.get('DATABASE_URL')
 
 if not database_path:
   database_path = 'postgresql://shaun:a128299239@localhost:5432/FSND-Capstone'
-
+'''
+database_path = 'postgres://fgsdzdaogcqesw:af2c5a057da5d71b235a2f7850494bb0d4ee4930a041b28153ad0cc395e62567@ec2-54-236-169-55.compute-1.amazonaws.com:5432/d1t4destug4dco'
 
 db = SQLAlchemy()
 
