@@ -57,6 +57,30 @@ def create_app(test_config=None):
       'movies': formatted_movies
     })
 
+  @app.route('/movies', methods=['POST'])
+  def create_movie():
+    body = request.get_json()
+
+    new_title = body.get('title')
+    new_release_date= body.get('release_date')
+
+    try:
+      movie = Movie(title = new_title, gender = new_release_date)
+      movie.insert()
+
+      movies = Movie.query.order_by(Movie.id).all()
+      current_movies = paginate_pages(request, movies)
+
+      return jsonify({
+        'success' : True,
+        'created': movie.id,
+        'movies': current_movies,
+        'total_actors': len(movies)
+      })
+
+    except:
+      abort(422)
+
   @app.route('/actors')
   @requires_auth('get:actors')
   def get_actors(token):
