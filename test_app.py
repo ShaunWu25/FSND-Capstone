@@ -6,6 +6,8 @@ from app import create_app
 from datetime import date
 from models import setup_db, Actor, Movie, act_movies
 
+casting_assistant_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA4NTkxOTc3ODY5MTAwNzg3NTkyIiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDQ4MDQ2OCwiZXhwIjoxNTk0NDg3NjY4LCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.ROu0kqcToPSSZm4Jzxd6eIY11wCpWfZaDsyVI8laQ4MJ4LDXmyLRw9QOBWvAfYI21gIBOR9O8ULepJ7o5YCLFbll6n5-lpquxfNsB8rcswYTIyREg5BVmP61o9PeO7QECP43KF34Pl1ic2PKvn095V_TFTLjyccBYhl8Dp3aZsfgmDx5F2EsSV8_6Wjdqg4LlHjxe2TEebVVGqt9p0GymQwIqD5Nkyo-2yIYYhAa7IimX1CvbgeBe0qKHhncdVcbkUCwxmc-nabr0s5V1LOMqDaSyPIJI9K6UwJriwiQh1akfMQ0hHRvgWt8pTQtpQzGSEb4tYqSN9-5UXxkrCthcg'
+executive_producer_auth_header = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEzODI1MDA0MDUxMjU0ODIzMjA2IiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDI4Njk2MiwiZXhwIjoxNTk0Mjk0MTYyLCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwb3N0OmFjdG9ycyJdfQ.IXiYjwnGSxpYDjlQlgCfaVX677oA-tSM14GtDwcqs7YEU-SQBqy2qXDg60KFNGcqBgxglWy8zrVCGE6epsfMdFe-PfqDChaGnKt5DQ8wwaOBeYHHQVPR581vviBEtVewyzIZpx7XQefU6iuV_mgLWOiwSlRawB5wlnbp_H0a9S_xZitVD7g-mgEADx_9mr3GIaxH32PeFG7a0tQgxX0LuZsKQ3JKk-TFsDaV2W0HhakGyvwQhClQtJc-zcFEqkuLpa2P9_1swGTe5Mc2d0fkl_w9t9495IaZs-B2jOfyD72MU-gjEGkMmB3z_HwA4A2bCwtpB1I2RGIPxzDNjaNq6w'
 class CastingAgencyTestCase(unittest.TestCase):
   """This class represents the ___ test case"""
 
@@ -13,7 +15,7 @@ class CastingAgencyTestCase(unittest.TestCase):
     """Executed before each test. Define test variables and initialize app."""
     self.app = create_app()
     self.client = self.app.test_client
-    self.database_path = 'postgresql://shaun:a128299239@localhost:5432/FSND-Capstone'
+    self.database_path = 'postgres://fgsdzdaogcqesw:af2c5a057da5d71b235a2f7850494bb0d4ee4930a041b28153ad0cc395e62567@ec2-54-236-169-55.compute-1.amazonaws.com:5432/d1t4destug4dco'
     setup_db(self.app, self.database_path)
 
     self.new_actor = {
@@ -33,7 +35,7 @@ class CastingAgencyTestCase(unittest.TestCase):
   def tearDown(self):
     """Executed after reach test"""
     pass
-
+  '''
   def test_get_paginated_actors(self):
     res = self.client().get('/actors')
     data = json.loads(res.data)
@@ -42,7 +44,16 @@ class CastingAgencyTestCase(unittest.TestCase):
     self.assertEqual(data['success'], True)
     self.assertTrue(data['total_actors'])
     self.assertTrue(len(data['actors']))
+  '''
+  def test_get_all_actors(self):
+    """Test GET all actors."""
+    res = self.client().get('/actors?page=1', headers = casting_assistant_auth_header)
+    data = json.loads(res.data)
 
+    self.assertEqual(res.status_code, 200)
+    self.assertTrue(data['success'])
+    self.assertTrue(len(data['actors']) > 0)
+  '''
   def test_404_sent_requesting_beyond_valid_page(self):
     res = self.client().get('/actors?page=500', json={'age':25})
     data = json.loads(res.data)
@@ -105,7 +116,7 @@ class CastingAgencyTestCase(unittest.TestCase):
     self.assertEqual(res.status_code, 405)
     self.assertEqual(data['success'], False)
     self.assertEqual(data['message'], 'method not allowed')
-
+'''
 # Make the tests conveniently executable
 if __name__ == "__main__":
   unittest.main()

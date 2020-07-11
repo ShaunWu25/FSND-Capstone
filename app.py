@@ -49,6 +49,7 @@ def create_app(test_config=None):
     return 'testing'
 
   @app.route('/movies')
+  @requires_auth('get:movies')
   def get_movies():
     movies = Movie.query.order_by(Movie.id).all()
     formatted_movies = [movie.format() for movie in movies]
@@ -58,6 +59,7 @@ def create_app(test_config=None):
     })
 
   @app.route('/movies', methods=['POST'])
+  @requires_auth('post:movies')
   def create_movie():
     body = request.get_json()
 
@@ -95,6 +97,7 @@ def create_app(test_config=None):
       })
 
   @app.route("/actors/<int:actor_id>")
+  @requires_auth('get:actors')
   def get_specific_actor(actor_id):
     actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
     if actor is None:
@@ -106,6 +109,7 @@ def create_app(test_config=None):
       })
 
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
+  @requires_auth('patch:actors')
   def update_actor(actor_id):
     body = request.get_json()
     try:
@@ -125,6 +129,7 @@ def create_app(test_config=None):
       abort(400)
 
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
+  @requires_auth('delete:actors')
   def delete_actor(actor_id):
     try:
       actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
@@ -146,6 +151,7 @@ def create_app(test_config=None):
       abort(422)
 
   @app.route('/actors', methods=['POST'])
+  @requires_auth('post:actors')
   def create_actor():
     body = request.get_json()
 
