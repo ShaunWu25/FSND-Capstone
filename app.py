@@ -65,7 +65,7 @@ def create_app(test_config=None):
     new_release_date= body.get('release_date')
 
     try:
-      movie = Movie(title = new_title, gender = new_release_date)
+      movie = Movie(title = new_title, release_date = new_release_date)
       movie.insert()
 
       movies = Movie.query.order_by(Movie.id).all()
