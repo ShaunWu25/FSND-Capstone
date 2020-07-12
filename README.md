@@ -71,7 +71,7 @@ Example response
 2. POST /actors
 Create new actor into database.
 ```
-$ curl -X POST -H "Content-Type: application/json" -d '{"name":"Shaun", "gender":"Male", "age":"30"}'
+$ curl -X POST -H "Content-Type: application/json" -d '{"name":"Shaun", "gender":"Male", "age":"30"}' https://shaun-casting-agency.herokuapp.com/actors
 ```
 Example response
 ```
@@ -84,7 +84,7 @@ Example response
         "name": "Shaun"
       }
     ],
-    "created": 5,
+    "created": 1,
     "success": true,
     "total_actors": 1
 }
@@ -143,7 +143,7 @@ Example response
 6. POST /movies
 Insert new movie into database.
 ```
-$ curl -X POST -H "Content-Type: application/json" -d '{"title":"Bat Man", "release_date":"2016-02-15"}'
+$ curl -X POST -H "Content-Type: application/json" -d '{"title":"Bat Man", "release_date":"2016-02-15"}' https://shaun-casting-agency.herokuapp.com/movies
 ```
 Example response
 ```
