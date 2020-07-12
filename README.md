@@ -54,9 +54,9 @@ How to work with each endpoint
 
 1. GET /actors
 Query paginated actors.
-
+'''
 $ curl -X GET https://shaun-casting-agency.herokuapp.com/actors?page1
-
+'''
 Example response
 {
   "actors": [
