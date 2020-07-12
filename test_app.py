@@ -6,8 +6,8 @@ from app import create_app
 from datetime import date
 from models import setup_db, Actor, Movie, act_movies
 
-casting_assistant_auth_header = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA4NTkxOTc3ODY5MTAwNzg3NTkyIiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDQ4MDQ2OCwiZXhwIjoxNTk0NDg3NjY4LCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.ROu0kqcToPSSZm4Jzxd6eIY11wCpWfZaDsyVI8laQ4MJ4LDXmyLRw9QOBWvAfYI21gIBOR9O8ULepJ7o5YCLFbll6n5-lpquxfNsB8rcswYTIyREg5BVmP61o9PeO7QECP43KF34Pl1ic2PKvn095V_TFTLjyccBYhl8Dp3aZsfgmDx5F2EsSV8_6Wjdqg4LlHjxe2TEebVVGqt9p0GymQwIqD5Nkyo-2yIYYhAa7IimX1CvbgeBe0qKHhncdVcbkUCwxmc-nabr0s5V1LOMqDaSyPIJI9K6UwJriwiQh1akfMQ0hHRvgWt8pTQtpQzGSEb4tYqSN9-5UXxkrCthcg'
-executive_producer_auth_header = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEzODI1MDA0MDUxMjU0ODIzMjA2IiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDQ4NDM0OCwiZXhwIjoxNTk0NDkxNTQ4LCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.Be4VhvCdashgMAAor4y7F0UoLMqBRoc5oWoEptQuT2wQeFFmN0LWo3YwNCtAwCCRCRdZJHiy7spO7YHubb0Wpns0NdoEdnb1cZ2hRdfqB3oQJFwf4Xqjr7gL6cxBRhhomSp6sZ7vxMF0Sm3WtZ0jPt6-OLAAJPDl1Nb6hQqHG6JkbIexzvQIuepSoDwxq7lvnSy_wANfQCZvsgMKY85HRB1HUGD9Yc5Dcvtrf4UmCK3ATXwwcvBQiuiWRqYxSKA1ZHyRToCu6MMDUd6slRdZJbaEK9IxC2QS2O7h8uW0UoyCvO85wON7s2IEKrEg8fGgoFLFC6kyqm6zmvgi016QJQ'
+casting_assistant_auth_header = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTA4NTkxOTc3ODY5MTAwNzg3NTkyIiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDU0NTYyMCwiZXhwIjoxNTk0NTUyODIwLCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJnZXQ6YWN0b3JzIiwiZ2V0Om1vdmllcyJdfQ.gebrn-CK4CH0BSiXbt0_6No_lopU6R4GSmBMGWbqdah4dsJpU1k2GwrE7cQuX3jmYbVak4aGJ1XSDUm6JA0h4Rak3Gbo8YuGkRSdOeFliGIbUg6QY-ApmuuHj9HRgiRTrwlYkr1Luw-iYE-uEQ5GNpOiPf0WmMW92i70SKNaJvUpyS04VHoF99JCNbvp1W1gRUFC7vhJV4apnRZXYLKgTnBI9K9Bq1taIStUPBh3TA5fzNwOVNuR02FFpUhTVEXnxg9Gcvwu2VcEYbQqRlQLMJ2CGZ9FW3id3MBj8VCosVBtqEvvglGAg2XYHxaTELhnX8PjDIg3O2gu0UyBhD-JBA'
+executive_producer_auth_header = 'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IlVuR2NFaHJia3I5akY2cmF0S25nQSJ9.eyJpc3MiOiJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tLyIsInN1YiI6Imdvb2dsZS1vYXV0aDJ8MTEzODI1MDA0MDUxMjU0ODIzMjA2IiwiYXVkIjpbIkNhc3RpbmctQWdlbmN5LUlkZW50aWZpZXIiLCJodHRwczovL2ZzbmQtc2hhdW4uYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU5NDU0NjM1OSwiZXhwIjoxNTk0NTUzNTU5LCJhenAiOiIwTXVycm9uQjNrZ2I4YVNhNUEzMVBRYzFMR1FtVmh1OSIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6YWN0b3JzIiwiZ2V0OmFjdG9ycyIsImdldDptb3ZpZXMiLCJwYXRjaDphY3RvcnMiLCJwb3N0OmFjdG9ycyIsInBvc3Q6bW92aWVzIl19.a2GDl5-r5H3p7KOkcBLWsJI1gNKgkc5NkXf6TgCkYpacpDmjsJMaeo4gLezoerRgCQXCRHlFRdATUsLXucskhq6Ir7s4KMTQ8BshzeiY5tWeQkiT12Y-uUvHceb_AL-KvgqsDmynMJw5Z3gkN3l_w3o9zBqHbIEiR0pNBFIccmbCYbxfV5qYtctstLrJ3z78UIokaK5seVG99de8u682oY_LHc8ythcmNtQSRDWsa8Bb-tS-cRj927rFhLgNxsaey4UYF5piX7KEdWd9bJGsyFDsZXTU7SSt9WwQzaUyyQEGalts0LipxTn9trrYP2vVUNcvN8iYTEABcOmeMwP-ZQ'
 
 class CastingAgencyTestCase(unittest.TestCase):
   """This class represents the ___ test case"""
@@ -46,14 +46,53 @@ class CastingAgencyTestCase(unittest.TestCase):
     self.assertTrue(data['total_actors'])
     self.assertTrue(len(data['actors']))
   '''
+  #----------------------------------------------------------------------------#
+  # Tests for /actors GET
+  #----------------------------------------------------------------------------#
   def test_get_all_actors(self):
     """Test GET all actors."""
-    res = self.client().get('/actors', headers = {'Authorization' : executive_producer_auth_header})
+    res = self.client().get('/actors', headers = {'Authorization' : casting_assistant_auth_header})
     data = json.loads(res.data)
 
     self.assertEqual(res.status_code, 200)
     self.assertTrue(data['success'])
     self.assertTrue(len(data['actors']) > 0)
+
+  def test_error_401_get_all_actors(self):
+    """Test GET all actors w/o Authorization."""
+    res = self.client().get('/actors?page=1')
+    data = json.loads(res.data)
+
+    self.assertEqual(res.status_code, 401)
+    self.assertFalse(data['success'])
+    self.assertEqual(data['message'], 'Authorization header is expected.')
+
+  def test_error_404_get_actors(self):
+    """Test Error GET all actors."""
+    res = self.client().get('/actors?page=100', headers = {'Authorization' : executive_producer_auth_header})
+    data = json.loads(res.data)
+
+    self.assertEqual(res.status_code, 404)
+    self.assertFalse(data['success'])
+    self.assertEqual(data['message'] , 'resource not found')
+
+  #----------------------------------------------------------------------------#
+  # Tests for /actors POST
+  #----------------------------------------------------------------------------#
+  def test_create_new_actor(self):
+    """Test POST new actor."""
+
+    new_actor = {
+        'name' : 'Hope',
+        'gender': 'Female',
+        'age' : "30"
+    } 
+
+    res = self.client().post('/actors', json = new_actor, headers = {'Authorization' : executive_producer_auth_header})
+    data = json.loads(res.data)
+
+    self.assertEqual(res.status_code, 200)
+    self.assertTrue(data['success'])
   '''
   def test_404_sent_requesting_beyond_valid_page(self):
     res = self.client().get('/actors?page=500', json={'age':25})

@@ -50,7 +50,7 @@ def create_app(test_config=None):
 
   @app.route('/movies')
   @requires_auth('get:movies')
-  def get_movies():
+  def get_movies(token):
     movies = Movie.query.order_by(Movie.id).all()
     formatted_movies = [movie.format() for movie in movies]
     return jsonify({
@@ -60,7 +60,7 @@ def create_app(test_config=None):
 
   @app.route('/movies', methods=['POST'])
   @requires_auth('post:movies')
-  def create_movie():
+  def create_movie(token):
     body = request.get_json()
 
     new_title = body.get('title')
@@ -98,7 +98,7 @@ def create_app(test_config=None):
 
   @app.route("/actors/<int:actor_id>")
   @requires_auth('get:actors')
-  def get_specific_actor(actor_id):
+  def get_specific_actor(token, actor_id):
     actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
     if actor is None:
       abort(404)
@@ -110,7 +110,7 @@ def create_app(test_config=None):
 
   @app.route('/actors/<int:actor_id>', methods=['PATCH'])
   @requires_auth('patch:actors')
-  def update_actor(actor_id):
+  def update_actor(token, actor_id):
     body = request.get_json()
     try:
       actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
@@ -130,7 +130,7 @@ def create_app(test_config=None):
 
   @app.route('/actors/<int:actor_id>', methods=['DELETE'])
   @requires_auth('delete:actors')
-  def delete_actor(actor_id):
+  def delete_actor(token, actor_id):
     try:
       actor = Actor.query.filter(Actor.id == actor_id).one_or_none()
       if actor is None:
@@ -152,7 +152,7 @@ def create_app(test_config=None):
 
   @app.route('/actors', methods=['POST'])
   @requires_auth('post:actors')
-  def create_actor():
+  def create_actor(token):
     body = request.get_json()
 
     new_name = body.get('name')
@@ -207,6 +207,14 @@ def create_app(test_config=None):
       "error": 405,
       "message": "method not allowed"
     }), 405
+
+  @app.errorhandler(AuthError)
+  def authentification_failed(AuthError): 
+      return jsonify({
+                      "success": False, 
+                      "error": AuthError.status_code,
+                      "message": AuthError.error['description']
+                      }), AuthError.status_code
   
   return app
 
