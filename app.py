@@ -42,12 +42,6 @@ def create_app(test_config=None):
   def hello():
     return jsonify({'message' : 'Hello World, This is Shaun.' })
 
-  @app.route('/headers')
-  @requires_auth()
-  def headers(token):
-    print(token)
-    return 'testing'
-
   @app.route('/movies')
   @requires_auth('get:movies')
   def get_movies(token):
