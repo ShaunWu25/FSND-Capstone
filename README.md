@@ -10,14 +10,16 @@ This is the final project of the Udacity Full-Stack Web Developer Nonodegree. It
 1. Database modeling with postgres and sqlalchemy. File: model.py
 2. API development and perform CRUD operations on database with flask. File: app.py
 3. Unit testing. File: test_app.py
-4. Authorization and Role Based Authentification with Auth0. File: Auth0
+4. Authorization and Role Based Authentification with Auth0. File: auth.py
 5. Depoloyment on Heroku
 
 The app is used like a casting agency, where roles like casting assitant and executive producer are included. The app focuses on the management of the casting agency in actors and movies.
 
 ## Setup
 To login or set up an account, go to the following url:
+```
 https://fsnd-shaun.auth0.com/authorize?audience=Casting-Agency-Identifier&response_type=token&client_id=0MurronB3kgb8aSa5A31PQc1LGQmVhu9&redirect_uri=https://shaun-casting-agency.herokuapp.com/login-results
+```
 
 There will be two roles: 
 1. Casting Assitant: able to perform GET both in actors and movies.
@@ -32,31 +34,31 @@ The base url for the API: https://shaun-casting-agency.herokuapp.com/
 
 Available Endpoints
 
-   Endpoints    |  GET |  POST |  DELETE | PATCH  |
-                |------|-------|---------|--------|
-  /actors       |  [o] |  [o]  |   [o]   |   [o]  |   
-  /movies       |  [o] |  [o]  |   [x]   |   [x]  |  
+Endpoints|  GET |  POST |  DELETE | PATCH  |
+|------|-------|---------|--------|
+/actors|  [o] |  [o]  |   [o]   |   [o]  |   
+/movies|  [o] |  [o]  |   [x]   |   [x]  |  
 
 How to work with each endpoint
 
 1. Actors
-    GET /actors
-    POST /actors
-    DELETE /actors
-    PATCH /actors
+----GET /actors
+----POST /actors
+----DELETE /actors
+----PATCH /actors
 
 2. Movies
-    GET /movies
-    POST /movies
+----GET /movies
+----POST /movies
     
 ------------------------------------------------------------------------------------------------
 
 
 1. GET /actors
 Query paginated actors.
-'''
+```
 $ curl -X GET https://shaun-casting-agency.herokuapp.com/actors?page1
-'''
+```
 Example response
 {
   "actors": [
