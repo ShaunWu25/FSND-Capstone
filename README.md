@@ -25,7 +25,7 @@ There will be two roles:
 1. Casting Assitant: able to perform GET both in actors and movies.
 2. Executive Producer: able to perform all the permissions.
 
-Two non-expired tokens for casting asistant and executive director should be applied in the file of test_app.py to perform unit-testing.
+Two non-expired tokens for casting asistant and executive producer should be applied in the file of test_app.py to perform unit-testing.
 
 ## API Documentation
 Here we document all available endpoints with example and responses.
@@ -33,23 +33,17 @@ Here we document all available endpoints with example and responses.
 The base url for the API: https://shaun-casting-agency.herokuapp.com/
 
 Available Endpoints
-
 |Endpoints|  GET |  POST |  DELETE | PATCH  |
 |------|-------|---------|--------|--------|
 |/actors|  [o] |  [o]  |   [o]   |   [o]  |   
 |/movies|  [o] |  [o]  |   [x]   |   [x]  |  
 
-How to work with each endpoint
+Role Based Permission
+|Roles|  GET |  POST |  DELETE | PATCH  |
+|------|-------|---------|--------|--------|
+|casting assistant|  [o] |  [x]  |   [x]   |   [x]  |   
+|executive producer|  [o] |  [o]  |   [o]   |   [o]  |  
 
-1. Actors
-----GET /actors
-----POST /actors
-----DELETE /actors
-----PATCH /actors
-
-2. Movies
-----GET /movies
-----POST /movies
     
 ------------------------------------------------------------------------------------------------
 
