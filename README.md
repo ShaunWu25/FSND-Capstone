@@ -47,7 +47,7 @@ export FLASK_APP=api.py;
 ```
 To run in the development mode, run:
 ```
-export FLASK_END=development;
+export FLASK_ENV=development;
 ```
 To run the server, execute:
 ```
@@ -60,7 +60,7 @@ To login or set up an account, go to the following url:
 https://fsnd-shaun.auth0.com/authorize?audience=Casting-Agency-Identifier&response_type=token&client_id=0MurronB3kgb8aSa5A31PQc1LGQmVhu9&redirect_uri=https://shaun-casting-agency.herokuapp.com/login-results
 ```
 
-There will be two roles: 
+There will be two roles in this app: 
 1. Casting Assitant: able to perform GET both in actors and movies.
 2. Executive Producer: able to perform all the permissions.
 
@@ -72,9 +72,9 @@ The access token should be extracted from the redirected url and use it accorgin
 RESTful principles are followed throughout the project, including appropriate naming of endpoints, use of HTTP methods GET, POST, PATCH, and DELETE.
 Routes perform CRUD operations.
 
-Utilize the @app.errorhandler decorator to format error responses as JSON objects for at least four different status codes
+Utilize the `@app.errorhandler` decorator to format error responses as JSON objects for at least four different status codes
 
-Project includes a custom @requires_auth decorator that:
+Project includes a custom `@requires_auth` decorator that:
 * get the Authorization header from the request
 * Decode and verify the JWT using the Auth0 secret
 * take an argument to describe the action
