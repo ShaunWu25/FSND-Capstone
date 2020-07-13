@@ -171,7 +171,7 @@ Example response
   ],
   "success":true,
   'created': 11,
-  'total_actors': 10
+  'total_movies': 10
 }
 ```
 ### Authentification
