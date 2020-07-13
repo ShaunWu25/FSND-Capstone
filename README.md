@@ -5,7 +5,7 @@
 4. Authentification
 5. Deployment
 
-## Motivations
+### Motivations
 This is the final project of the Udacity Full-Stack Web Developer Nonodegree. It covers following topics in the captone project.
 
 1. Database modeling with postgres and sqlalchemy. File: model.py
@@ -16,7 +16,45 @@ This is the final project of the Udacity Full-Stack Web Developer Nonodegree. It
 
 The app is used like a casting agency, where roles include casting assitant and executive producer. The app focuses on the management of the casting agency in actors and movies.
 
-## Setup
+### Setup
+# Installing Dependencies
+Python 3.7
+Follow instructions to install the latest version of python for your platform in the python docs
+
+# Virtual Enviornment
+We recommend working within a virtual environment whenever using Python for projects. This keeps your dependencies for each project separate and organaized. Instructions for setting up a virual enviornment for your platform can be found in the python docs
+
+# PIP Dependencies
+Once you have your virtual environment setup and running, install dependencies by naviging to the root directory and running:
+```
+pip install -r requirements.txt
+```
+This will install all of the required packages we selected within the requirements.txt file.
+
+# Key Dependencies
+[Flask][https://flask.palletsprojects.com/en/1.1.x/] is a lightweight backend microservices framework. Flask is required to handle requests and responses.
+
+[SQLAlchemy][https://www.sqlalchemy.org/] and [Flask-SQLAlchemy][https://flask-sqlalchemy.palletsprojects.com/en/2.x/] are libraries to handle the lightweight sqlite database. Since we want you to focus on auth, we handle the heavy lift for you in ./src/database/models.py. We recommend skimming this code first so you know how to interface with the Drink model.
+
+[jose][https://python-jose.readthedocs.io/en/latest/] JavaScript Object Signing and Encryption for JWTs. Useful for encoding, decoding, and verifying JWTS.
+
+# Running the server
+From within the directory first ensure you are working using your created virtual environment.
+
+Each time you open a new terminal session, run:
+```
+export FLASK_APP=api.py;
+```
+To run in the development mode, run:
+```
+export FLASK_END=development;
+```
+To run the server, execute:
+```
+flask run --reload
+```
+The --reload flag will detect file changes and restart the server automatically.
+
 To login or set up an account, go to the following url:
 ```
 https://fsnd-shaun.auth0.com/authorize?audience=Casting-Agency-Identifier&response_type=token&client_id=0MurronB3kgb8aSa5A31PQc1LGQmVhu9&redirect_uri=https://shaun-casting-agency.herokuapp.com/login-results
@@ -27,8 +65,10 @@ There will be two roles:
 2. Executive Producer: able to perform all the permissions.
 
 Two non-expired tokens for casting asistant and executive producer should be applied in the file of test_app.py to perform unit-testing.
+You should access [Auth0][https://auth0.com/] and create relevant roles and users, subsequently assign it the the signed accounts to perform proper authtification.
+The access token should be extracted from the redirected url and use it accorgingly when you sent the request in authorization header.
 
-## RESTful API Documentation
+### RESTful API Documentation
 RESTful principles are followed throughout the project, including appropriate naming of endpoints, use of HTTP methods GET, POST, PATCH, and DELETE.
 Routes perform CRUD operations.
 
