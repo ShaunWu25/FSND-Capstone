@@ -66,7 +66,7 @@ There will be two roles in this app:
 
 Two non-expired tokens for casting asistant and executive producer should be applied in the file of test_app.py to perform unit-testing.
 You should access [Auth0](https://auth0.com/) and create relevant `roles` and `users`, subsequently assign it the the signed accounts to perform proper authentifications.
-The access token should be extracted from the redirected url and use it accorgingly when you sent the request in authorization header.
+The access token should be extracted from the redirected url and use it accordingly when you send the request in authorization header.
 
 ## RESTful API Documentation
 RESTful principles are followed throughout the project, including appropriate naming of endpoints, use of HTTP methods GET, POST, PATCH, and DELETE.
